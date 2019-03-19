@@ -8,7 +8,7 @@ from rest_framework import status
 
 from .models import FileUpload, URLUpload
 from .serializers import FileUploadSerializer, URLUploadSerializer
-from .services import URLUploadService
+from .services import FileUploadService, URLUploadService
 
 class UploadView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -30,7 +30,7 @@ class UploadFileView(APIView):
         serializer = FileUploadSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            # parsed = URLUpload.url_check(request.data['url'])
+            FileUploadService.parse_file_type
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -40,8 +40,7 @@ class UploadURLView(APIView):
         serializer = URLUploadSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            # parsed = URLUpload.url_check(request.data['url'])
-            parsed = URLUploadService.parse_url(request.data['url'])
+            URLUploadService.parse_url(request.data['url'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
