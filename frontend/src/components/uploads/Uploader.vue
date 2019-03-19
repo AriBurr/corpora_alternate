@@ -2,7 +2,13 @@
   <div class="uploader-wrap">
     <input
       class="uploadInput"
-      placeholder="Type URL..."
+      placeholder="Title"
+      v-model="uploadedTitle"
+      type="text"
+    />
+    <input
+      class="uploadInput"
+      placeholder="URL"
       v-model="uploadedItem"
       type="text"
     />
@@ -10,7 +16,7 @@
       class="submitButton"
       @click="
         event => {
-          $emit('determineUploadType', uploadedItem);
+          $emit('determineUploadType', uploadedItem, uploadedTitle);
         }
       "
     >
@@ -23,7 +29,8 @@
 export default {
   data() {
     return {
-      uploadedItem: null
+      uploadedItem: null,
+      uploadedTitle: null
     };
   }
 };

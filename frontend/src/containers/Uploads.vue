@@ -49,12 +49,15 @@ export default {
     uploadTypeSelection(e) {
       this.uploadType = parseInt(e);
     },
-    determineUploadType() {
+    determineUploadType(item, title) {
       if (this.uploadType === 1) {
         alert("first one");
         return;
       } else if (this.uploadType === 2) {
-        alert("second one");
+        console.log("farts");
+        console.log(item);
+        console.log(title);
+        axios.post("/upload_url/", { title, url: item });
         return;
       }
     }
