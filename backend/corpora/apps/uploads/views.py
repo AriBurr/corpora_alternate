@@ -1,6 +1,3 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-
 from rest_framework.views import APIView
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response

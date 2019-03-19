@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import magic
 from PyPDF2 import PdfFileReader
 
+from apps.characters.services import CharacterService
 from apps.ngrams.services import NGramService
 from apps.words.services import WordService
 
@@ -20,6 +21,7 @@ class URLUploadService(object):
         for tag in body.select('style'):
             tag.decompose()
         text = body.get_text().strip()
+        CharacterService.count_vectorizer(text)
         NGramService.count_vectorizer(text)
         WordService.count_vectorizer(text)
 
@@ -40,6 +42,7 @@ class FileUploadService:
     def convert_ASCII(file):
         document = open(f'media/{file}', 'rb')
         text = document.read().decode("utf-8")
+        CharacterService.count_vectorizer(text)
         NGramService.count_vectorizer(text)
         WordService.count_vectorizer(text)
 
@@ -53,6 +56,7 @@ class FileUploadService:
             for page_number in range(number_of_pages):
                 page = pdf.getPage(page_number)
                 text = page.extractText()
+                CharacterService.count_vectorizer(text)
                 NGramService.count_vectorizer(text)
                 WordService.count_vectorizer(text)
     
