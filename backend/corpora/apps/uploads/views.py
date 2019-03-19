@@ -30,7 +30,7 @@ class UploadFileView(APIView):
         serializer = FileUploadSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            FileUploadService.parse_file_type
+            FileUploadService.parse_file_type()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
