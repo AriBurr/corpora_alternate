@@ -133,4 +133,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['localhost']
+CORS_ALLOW_CREDENTIALS=True
+CORS_ORIGIN_WHITELIST=('localhost:8080')
+CORS_ORIGIN_REGEX_WHITELIST=('localhost:8080')
+ALLOWED_HOSTS = ['http://localhost:8080/','localhost']

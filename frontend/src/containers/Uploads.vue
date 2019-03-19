@@ -9,30 +9,54 @@
         @languageSelection="languageSelection"
       />
     </div>
+    <RadioButtons
+      v-model="uploadType"
+      :uploadTypes="uploadTypes"
+      @uploadTypeSelection="uploadTypeSelection"
+    />
+    <Uploader
+      v-if="uploadType !== null"
+      @determineUploadType="determineUploadType"
+      v-model="uploadedItem"
+    />
   </div>
 </template>
 
 <script>
-// import FileUpload from "../components/uploads/FileUpload";
-// import UrlUpload from "../components/uploads/UrlUpload";
 import LanguageSelect from "../components/uploads/LanguageSelect";
+import Uploader from "../components/uploads/Uploader";
+import RadioButtons from "../components/uploads/RadioButtons";
+import axios from "axios";
 
 export default {
-  components: { LanguageSelect },
+  components: { LanguageSelect, RadioButtons, Uploader },
   data() {
     return {
-      urlUpload: false,
-      fileUpload: false,
+      uploadedItem: "",
+      uploadType: null,
+      uploadTypes: [{ name: "File", id: 1 }, { name: "URL", id: 2 }],
       selectedLanguage: false,
-      languages: [{ text: "english", value: 1 }, { text: "spansih", value: 2 }]
+      languages: []
     };
   },
-  // mounted(){
-  //   axios.get('https:localhost:8000/languages')
-  // },
+  mounted() {
+    axios.get("/languages").then(r => (this.languages = r.data));
+  },
   methods: {
     languageSelection(e) {
       this.selectedLanguage = e;
+    },
+    uploadTypeSelection(e) {
+      this.uploadType = parseInt(e);
+    },
+    determineUploadType() {
+      if (this.uploadType === 1) {
+        alert("first one");
+        return;
+      } else if (this.uploadType === 2) {
+        alert("second one");
+        return;
+      }
     }
   }
 };

@@ -31,6 +31,17 @@ body {
   overflow: hidden;
   margin: 0;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+span {
+  margin: 0;
+}
 
 .router-wrap {
   margin: 50px 0px;

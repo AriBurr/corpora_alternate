@@ -10,10 +10,11 @@
     >
       <option disabled>Select a Language</option>
       <option
+        class="single-option"
         v-for="option in languages"
-        :value="option.text"
+        :value="option.name"
         :key="option.value"
-        >{{ option.text }}</option
+        >{{ option.name }}</option
       >
     </select>
   </div>
@@ -47,5 +48,22 @@ export default {
 <style>
 .input-wrap {
   width: 50%;
+}
+select {
+  width: 50%;
+  padding: 5px;
+  line-height: 1;
+  font-size: 20px;
+  text-align: center;
+  border: 0;
+  border-radius: 5px;
+  height: 34px;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+    no-repeat right #ddd;
+  -webkit-appearance: none;
+  background-position-x: 95%;
+}
+.single-option {
+  font-size: 16px;
 }
 </style>
