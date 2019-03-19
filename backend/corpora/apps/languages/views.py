@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.response import Response
 
-# Create your views here.
+from .models import Language
+from .serializers import LanguageSerializer
+
+class LanguageViewSet(ListCreateAPIView):
+    queryset = Language.objects.all()
+    serializer_class = LanguageSerializer
