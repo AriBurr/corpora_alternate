@@ -10,9 +10,7 @@
     <div class="router-wrap">
       <router-view />
     </div>
-    <div id="footer-nav" class="nav-bars">
-      READ Toolkit - {{ uploadCount }} files have been uploaded
-    </div>
+    <div id="footer-nav" class="nav-bars">READ Toolkit</div>
   </div>
 </template>
 

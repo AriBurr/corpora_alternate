@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1 class="uploads-header">Upload Files or URLs</h1>
+    <h1 class="uploads-header">Corpora Upload</h1>
     <div class="lang-select-wrap">
       <h1 class="lang-select-header">Select a language to upload:</h1>
       <LanguageSelect
@@ -18,6 +18,7 @@
       v-if="uploadType === 1"
       @handleURLUpload="handleURLUpload"
       v-model="uploadedItem"
+      :selectedLanguage="selectedLanguage"
     />
     <FileUpload v-if="uploadType === 2" :selectedLanguage="selectedLanguage" />
   </div>
@@ -57,7 +58,11 @@ export default {
       this.uploadType = parseInt(e);
     },
     handleURLUpload(item, title) {
-      axios.post("/upload_url/", { title: title, url: item });
+      axios.post("/upload_url/", {
+        title: title,
+        url: item,
+        language_id: this.selectedLanguage
+      });
       return;
     }
   }

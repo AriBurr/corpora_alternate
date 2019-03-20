@@ -1,9 +1,9 @@
 <template>
   <div class="radio-wrap">
-    <h2>Select Upload Type:</h2>
+    <h2 class="how-will-you">How will you upload files?</h2>
     <div class="button-wrap">
       <div class="single-radio">
-        <h3>URL</h3>
+        <h3>Copy/Paste URL</h3>
         <input
           type="radio"
           v-model="uploadType"
@@ -16,7 +16,7 @@
         />
       </div>
       <div class="single-radio">
-        <h3>File</h3>
+        <h3>Upload File(s)</h3>
         <input
           type="radio"
           v-model="uploadType"
@@ -52,8 +52,11 @@ export default {
 .button-wrap {
   display: flex;
   margin: 0 auto;
-  width: 50%;
+  width: 75%;
   justify-content: space-around;
+}
+.how-will-you {
+  padding: 10px 0;
 }
 .radio-wrap {
   display: flex;
@@ -61,6 +64,6 @@ export default {
   justify-content: center;
 }
 .single-radio {
-  width: 100px;
+  width: 50%;
 }
 </style>
