@@ -8,19 +8,9 @@ from .serializers import FileUploadSerializer, URLUploadSerializer
 from .services import FileUploadService, URLUploadService
 
 class UploadView(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'upload_form/form.html'
     def get(self, request):
         queryset = FileUpload.objects.all()
         return Response({'uploads': queryset})
-
-class SuccessView(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'upload_form/success.html'
-
-class FailureView(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'upload_form/failure.html'
 
 class UploadFileView(APIView):
     def post(self, request):
@@ -41,3 +31,11 @@ class UploadURLView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class SuccessView(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'upload_form/success.html'
+
+# class FailureView(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'upload_form/failure.html'
