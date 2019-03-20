@@ -11,7 +11,9 @@ from apps.words.services import WordService
 
 class URLUploadService(object):
     @staticmethod
-    def parse_url(url):
+    def parse_url(data):
+        url = data["url"]
+        language_identifier = data["language_id"]
         with urllib.request.urlopen(url) as response:
             stripped = response.read().decode("utf-8")
             tree = BeautifulSoup(stripped, "html.parser")
@@ -23,7 +25,7 @@ class URLUploadService(object):
         text = body.get_text().strip()
         CharacterService.count_vectorizer(text)
         NGramService.count_vectorizer(text)
-        WordService.count_vectorizer(text)
+        WordService.count_vectorizer(text, language_identifier)
 
 class FileUploadService:
     @staticmethod
@@ -44,7 +46,7 @@ class FileUploadService:
         text = document.read().decode("utf-8")
         CharacterService.count_vectorizer(text)
         NGramService.count_vectorizer(text)
-        WordService.count_vectorizer(text)
+        WordService.count_vectorizer(text, language_identifier)
 
     @staticmethod
     def convert_PDF(file):
@@ -58,7 +60,7 @@ class FileUploadService:
                 text = page.extractText()
                 CharacterService.count_vectorizer(text)
                 NGramService.count_vectorizer(text)
-                WordService.count_vectorizer(text)
+                WordService.count_vectorizer(text, language_identifier)
     
     @staticmethod
     def remove_media_file():

@@ -4,15 +4,16 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 class WordService(object):
     @staticmethod
-    def count_vectorizer(text):
+    def count_vectorizer(text, language_identifier):
         vectorizer = CountVectorizer(
             token_pattern=r"\b[\w']+\b", analyzer="word")
         tokens = vectorizer.fit([text]).get_feature_names()
         freq = vectorizer.transform([text]).toarray()[0].tolist()
-        data = [list(t) for t in zip(tokens, freq)]
+        lang = [language_identifier] * len(tokens)
+        data = [list(t) for t in zip(tokens, freq, lang)]
         with connection.cursor() as cursor:
             cursor.executemany(
-                "INSERT INTO words_word(word,count)\
+                "INSERT INTO words_word(word,count,language_id)\
                 VALUES (%s,%s) ON CONFLICT (word)\
                 DO UPDATE SET count = excluded.count + words_word.count;", data)
             cursor.execute(

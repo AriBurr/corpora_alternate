@@ -31,7 +31,7 @@ class UploadURLView(APIView):
         serializer = URLUploadSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            URLUploadService.parse_url(request.data['url'])
+            URLUploadService.parse_url(request.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
