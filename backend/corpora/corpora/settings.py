@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.languages',
     'apps.ngrams',
     'apps.uploads',
+    'apps.recommenders',
     'apps.words'
 ]
 

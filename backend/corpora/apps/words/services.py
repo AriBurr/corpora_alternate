@@ -22,3 +22,4 @@ class WordService(object):
                 from new_values new_values\
                 where new_values.id = old_values.id;"
             )
+            cursor.close()
