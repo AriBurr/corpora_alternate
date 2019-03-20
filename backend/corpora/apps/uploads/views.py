@@ -6,7 +6,6 @@ from rest_framework import status
 from .models import FileUpload, URLUpload
 from .serializers import FileUploadSerializer, URLUploadSerializer
 from .services import FileUploadService, URLUploadService
-from .forms import FileUploadForm
 
 class UploadView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -25,24 +24,13 @@ class FailureView(APIView):
 
 class UploadFileView(APIView):
     def post(self, request):
-        MyFileUpload = FileUploadForm(request.POST, request.FILES)
-        if MyFileUpload.is_valid():
-            file = FileUpload()
-            file.title = MyFileUpload.cleaned_data["title"]
-            file.file = MyFileUpload.cleaned_data["file"]
-            file.save()
-            saved = True
+        serializer = FileUploadSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            FileUploadService.parse_file_type()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            MyFileUpload = FileUploadForm()
-
-        return Response(MyFileUpload.data, status=status.HTTP_201_CREATED)
-        # serializer = FileUploadSerializer(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     FileUploadService.parse_file_type()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # else:
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UploadURLView(APIView):
     def post(self, request):
