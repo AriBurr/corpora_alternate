@@ -1,45 +1,17 @@
-<style>
-input[type="file"] {
-  position: absolute;
-  top: -500px;
-}
-div.file-listing {
-  width: 200px;
-}
-span.remove-file {
-  color: red;
-  cursor: pointer;
-  float: right;
-}
-</style>
-
 <template>
-  <div class="container">
-    <div class="large-12 medium-12 small-12 cell">
+  <div id="app">
+    <div class="file-select-wrap">
       <label>
-        Files
+        File
         <input
           type="file"
-          id="files"
-          ref="files"
+          id="file"
+          ref="file"
+          v-on:change="handleFileUpload()"
           multiple
-          v-on:change="handleFilesUpload()"
         />
       </label>
-    </div>
-    <div class="large-12 medium-12 small-12 cell">
-      <div v-for="(file, key) in files" class="file-listing">
-        {{ file.name }}
-        <span class="remove-file" v-on:click="removeFile(key)">Remove</span>
-      </div>
-    </div>
-    <br />
-    <div class="large-12 medium-12 small-12 cell">
-      <button v-on:click="addFiles()">Add Files</button>
-    </div>
-    <br />
-    <div class="large-12 medium-12 small-12 cell">
-      <button v-on:click="submitFiles()">Submit</button>
+      <button v-on:click="submitFile()">Submit</button>
     </div>
   </div>
 </template>
@@ -47,74 +19,48 @@ span.remove-file {
 <script>
 import axios from "axios";
 export default {
-  /*
-      Defines the data used by the component
-    */
   data() {
     return {
-      files: []
+      file: []
     };
   },
-  /*
-      Defines the method used by the component
-    */
   methods: {
-    /*
-        Adds a file
-      */
-    addFiles() {
-      this.$refs.files.click();
-    },
-    /*
-        Submits files to the server
-      */
-    submitFiles() {
-      /*
-          Initialize the form data
-        */
-      let formData = new FormData();
-      /*
-          Iteate over any file sent over appending the files
-          to the form data.
-        */
-      for (var i = 0; i < this.files.length; i++) {
-        let file = this.files[i];
-        formData.append("files[" + i + "]", file);
+    submitFile() {
+      for (var i = 0; i < this.file.length; i++) {
+        let formData = new FormData();
+        formData.append("file", this.file[i].file);
+        formData.append("title", this.file[i].name);
+        // formData.append("file_type", this.file[i].file_type);
+        axios
+          .post("/upload_file/", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
+          .then(function() {
+            console.log("SUCCESS!!");
+          })
+          .catch(function() {
+            console.log("FAILURE!!");
+          });
       }
-      /*
-          Make the request to the POST /select-files URL
-        */
-      axios
-        .post("/upload_file/", this.files, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        })
-        .then(function() {
-          console.log("SUCCESS!!");
-        })
-        .catch(function() {
-          console.log("FAILURE!!");
+      return;
+    },
+    handleFileUpload() {
+      for (var i = 0; i < this.$refs.file.files.length; i++) {
+        this.file.push({
+          file: this.$refs.file.files[i],
+          title: this.$refs.file.files[i].name,
+          file_type: this.$refs.file.files[i].type
         });
-    },
-    /*
-        Handles the uploading of files
-      */
-    handleFilesUpload() {
-      let uploadedFiles = this.$refs.files.files;
-      /*
-          Adds the uploaded file to the files array
-        */
-      for (var i = 0; i < uploadedFiles.length; i++) {
-        this.files = { file: uploadedFiles[i] };
       }
-    },
-    /*
-        Removes a select file the user has uploaded
-      */
-    removeFile(key) {
-      this.files.splice(key, 1);
     }
   }
+  //   removeFile(key) {
+  //     this.files.splice(key, 1);
+  //   }
+  // }
 };
 </script>
+
+<style></style>

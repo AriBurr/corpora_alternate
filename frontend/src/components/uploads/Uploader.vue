@@ -16,7 +16,7 @@
       class="submitButton"
       @click="
         event => {
-          $emit('determineUploadType', uploadedItem, uploadedTitle);
+          $emit('handleURLUpload', uploadedItem, uploadedTitle);
         }
       "
     >
