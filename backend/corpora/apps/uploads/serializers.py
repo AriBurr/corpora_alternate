@@ -12,6 +12,6 @@ class URLUploadSerializer(serializers.ModelSerializer):
 class FileUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileUpload
-        fields = ('title', 'file')
-        # fields = '__all__'
+        # fields = 'file'
+        fields = '__all__'
     

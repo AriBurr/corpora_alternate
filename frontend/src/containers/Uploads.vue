@@ -15,23 +15,42 @@
       @uploadTypeSelection="uploadTypeSelection"
     />
     <Uploader
-      v-if="uploadType !== null"
+      v-if="uploadType === 1"
       @determineUploadType="determineUploadType"
       v-model="uploadedItem"
     />
+    <vue2Dropzone
+      v-if="uploadType === 2"
+      ref="myVueDropzone"
+      id="dropzone"
+      :options="config"
+    ></vue2Dropzone>
+    <!-- <FileUpload v-if="uploadType === 2" :selectedLanguage="selectedLanguage" /> -->
   </div>
 </template>
 
 <script>
 import LanguageSelect from "../components/uploads/LanguageSelect";
 import Uploader from "../components/uploads/Uploader";
+import vue2Dropzone from "vue2-dropzone";
+import "vue2-dropzone/dist/vue2Dropzone.min.css";
+// import FileUpload from "../components/uploads/FileUpload";
 import RadioButtons from "../components/uploads/RadioButtons";
 import axios from "axios";
 
 export default {
-  components: { LanguageSelect, RadioButtons, Uploader },
+  components: {
+    LanguageSelect,
+    RadioButtons,
+    Uploader,
+    vue2Dropzone
+    // FileUpload
+  },
   data() {
     return {
+      config: {
+        url: "/upload_file/"
+      },
       uploadedItem: "",
       uploadType: null,
       uploadTypes: [{ name: "File", id: 1 }, { name: "URL", id: 2 }],
