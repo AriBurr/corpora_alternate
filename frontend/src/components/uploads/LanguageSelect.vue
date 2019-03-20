@@ -12,7 +12,7 @@
       <option
         class="single-option"
         v-for="option in languages"
-        :value="option.name"
+        :value="option.id"
         :key="option.value"
         >{{ option.name }}</option
       >

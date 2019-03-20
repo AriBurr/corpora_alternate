@@ -14,7 +14,7 @@ class WordService(object):
         with connection.cursor() as cursor:
             cursor.executemany(
                 "INSERT INTO words_word(word,count,language_id)\
-                VALUES (%s,%s) ON CONFLICT (word)\
+                VALUES (%s,%s,%s) ON CONFLICT (word)\
                 DO UPDATE SET count = excluded.count + words_word.count;", data)
             cursor.execute(
                 "WITH new_values AS (SELECT id, count / (SELECT SUM(count)::FLOAT FROM words_word) AS freq FROM words_word)\
