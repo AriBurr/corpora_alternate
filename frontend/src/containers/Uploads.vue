@@ -54,10 +54,7 @@ export default {
         alert("first one");
         return;
       } else if (this.uploadType === 2) {
-        console.log("farts");
-        console.log(item);
-        console.log(title);
-        axios.post("/upload_url/", { title, url: item });
+        axios.post("/upload_url/", { title: title, url: item });
         return;
       }
     }

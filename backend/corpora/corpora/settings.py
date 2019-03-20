@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'corpora.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'read_corpora',
-        'USER': 'matthewpeterson',
-        'PASSWORD': 'Yomomma0219',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
