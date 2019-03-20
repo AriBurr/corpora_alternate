@@ -5,6 +5,7 @@ class RecommenderService(object):
     @staticmethod
     def get_all_permutations(data):
         return [[''.join(p)] for p in itertools.permutations(data["str"], data["num"])]
+        
     @staticmethod
     def search_substrings(data):
         with connection.cursor() as cursor:
