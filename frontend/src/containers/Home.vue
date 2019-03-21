@@ -1,15 +1,18 @@
 <template>
-  <div class="home">
-    <h1 class="read-header">READ Toolkit</h1>
-  </div>
+  <StyledDiv class="home" height="418px">
+    <StyledHeader margin="0 5px" class="read-header">READ Toolkit</StyledHeader>
+    <StyledButton>hello</StyledButton>
+  </StyledDiv>
 </template>
 
 <script>
-// @ is an alias to /src
+import { StyledButton } from "../components/generics/StyledButton.js";
+import { StyledDiv } from "../components/generics/StyledDiv.js";
+import { StyledHeader } from "../components/generics/StyledHeader.js";
 
 export default {
   name: "home",
-  components: {}
+  components: { StyledButton, StyledDiv, StyledHeader }
 };
 </script>
 
@@ -19,8 +22,5 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.read-header {
-  font-size: 4em;
 }
 </style>
