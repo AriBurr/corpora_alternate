@@ -20,7 +20,11 @@
       v-model="uploadedItem"
       :selectedLanguage="selectedLanguage"
     />
-    <FileUpload v-if="uploadType === 2" :selectedLanguage="selectedLanguage" />
+    <FileUpload
+      v-if="uploadType === 2"
+      :selectedLanguage="selectedLanguage"
+      @handleFileUpload="handleFileUpload"
+    />
   </div>
 </template>
 
