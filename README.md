@@ -11,11 +11,11 @@ $ which python3
 ex. output:
 /usr/local/bin/python3
 
-5) Create a virtual environment:
-$ virtualenv -p /usr/local/bin/python3 [my_project_name]
-
-6) Clone project and navigate to backend folder:
+5) Clone project and navigate to backend folder:
 $ cd corpora/backend
+
+6) Create a virtual environment:
+$ virtualenv -p /usr/local/bin/python3 [my_project_name]
 
 7) To activate the new virtual environment, run the following:
 $ source [my_project_name]/bin/activate
