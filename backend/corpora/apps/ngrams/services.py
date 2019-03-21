@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 class NGramService(object):
     @staticmethod
     def count_vectorizer(text, lang):
-        vectorizer = CountVectorizer(token_pattern=r"\b[\w']+\b", analyzer="word", ngram_range=(3,3), min_df=1)
+        vectorizer = CountVectorizer(token_pattern=r"\b[a-zA-Z\']+\b", analyzer="word", ngram_range=(3,3), min_df=1)
         tokens = vectorizer.fit([text]).get_feature_names() 
         freq = vectorizer.transform([text]).toarray()[0].tolist() 
         n_grams = []

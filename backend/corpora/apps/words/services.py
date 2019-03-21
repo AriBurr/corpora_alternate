@@ -6,7 +6,7 @@ class WordService(object):
     @staticmethod
     def count_vectorizer(text, language_identifier):
         vectorizer = CountVectorizer(
-            token_pattern=r"\b[\w']+\b", analyzer="word")
+            token_pattern=r"\b[a-zA-Z\']+\b", analyzer="word")
         tokens = vectorizer.fit([text]).get_feature_names()
         length = [len(t) for t in tokens]
         freq = vectorizer.transform([text]).toarray()[0].tolist()
@@ -14,7 +14,7 @@ class WordService(object):
         data = [list(t) for t in zip(tokens, length, freq, lang)]
         with connection.cursor() as cursor:
             cursor.executemany(
-                "INSERT INTO words_word(word,count,length,language_id)\
+                "INSERT INTO words_word(word,length,count,language_id)\
                 VALUES (%s,%s,%s,%s) ON CONFLICT (word)\
                 DO UPDATE SET count = excluded.count + words_word.count;", data)
             cursor.execute(

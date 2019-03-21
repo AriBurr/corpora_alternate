@@ -35,7 +35,7 @@ class FileUploadService:
         file_list = os.listdir(path)
         for i in file_list:
             file_type = magic.from_file(f'media/{i}').split(", ")
-            if file_type[0] == "ASCII text" or file_type[0] == "Rich Text Format data":
+            if file_type[0] == "ASCII text" or file_type[0] == "Rich Text Format data" or file_type[0] == "UTF-8 Unicode text":
                 FileUploadService.convert_ASCII(i, language_id)
             elif file_type[0] == "PDF document":
                 FileUploadService.convert_PDF(i, language_id)
