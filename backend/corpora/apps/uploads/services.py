@@ -24,8 +24,8 @@ class URLUploadService(object):
             tag.decompose()
         text = body.get_text().strip()
         CharacterService.count_vectorizer(text, language_id)
-        NGramService.count_vectorizer(text, language_id)
         WordService.count_vectorizer(text, language_id)
+        NGramService.count_vectorizer(text, language_id)
 
 class FileUploadService:
     @staticmethod
@@ -46,8 +46,8 @@ class FileUploadService:
         document = open(f'media/{file}', 'rb')
         text = document.read().decode("utf-8")
         CharacterService.count_vectorizer(text, language_id)
-        NGramService.count_vectorizer(text, language_id)
         WordService.count_vectorizer(text, language_id)
+        NGramService.count_vectorizer(text, language_id)
 
     @staticmethod
     def convert_PDF(file,language_id):
@@ -60,8 +60,8 @@ class FileUploadService:
                 page = pdf.getPage(page_number)
                 text = page.extractText()
                 CharacterService.count_vectorizer(text, language_id)
-                NGramService.count_vectorizer(text, language_id)
                 WordService.count_vectorizer(text, language_id)
+                NGramService.count_vectorizer(text, language_id)
     
     @staticmethod
     def remove_media_file():
