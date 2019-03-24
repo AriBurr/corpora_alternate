@@ -24,8 +24,11 @@ class URLUploadService(object):
             tag.decompose()
         text = body.get_text().strip()
         CharacterService.count_vectorizer(text, language_id)
-        WordService.count_vectorizer(text, language_id)
         NGramService.count_vectorizer(text, language_id)
+        WordService.count_vectorizer(text, language_id)
+        NGramService.update_ngram_freq(language_id)
+        CharacterService.update_char_freq(language_id)
+        WordService.update_word_freq(language_id)
 
 class FileUploadService:
     @staticmethod
@@ -46,22 +49,27 @@ class FileUploadService:
         document = open(f'media/{file}', 'rb')
         text = document.read().decode("utf-8")
         CharacterService.count_vectorizer(text, language_id)
-        WordService.count_vectorizer(text, language_id)
         NGramService.count_vectorizer(text, language_id)
+        WordService.count_vectorizer(text, language_id)
+        NGramService.update_ngram_freq(language_id)
+        CharacterService.update_char_freq(language_id)
+        WordService.update_word_freq(language_id)
 
     @staticmethod
     def convert_PDF(file,language_id):
         with open(f'media/{file}', 'rb') as text_file:
             pdf = PdfFileReader(text_file)
-            if pdf.isEncrypted:
-                pdf.decrypt('')
+            if pdf.isEncrypted: pdf.decrypt('')
             number_of_pages = pdf.getNumPages()
             for page_number in range(number_of_pages):
                 page = pdf.getPage(page_number)
                 text = page.extractText()
                 CharacterService.count_vectorizer(text, language_id)
-                WordService.count_vectorizer(text, language_id)
                 NGramService.count_vectorizer(text, language_id)
+                WordService.count_vectorizer(text, language_id)
+            NGramService.update_ngram_freq(language_id)
+            CharacterService.update_char_freq(language_id)
+            WordService.update_word_freq(language_id)
     
     @staticmethod
     def remove_media_file():
