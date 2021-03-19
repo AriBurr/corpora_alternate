@@ -6,7 +6,7 @@ chardet==3.0.4
 Django==2.1.7
 django-cors-headers==2.5.2
 django-silk==3.0.1
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 gprof2dot==2016.10.13
 idna==2.8
 isort==4.3.15
